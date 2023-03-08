@@ -25,13 +25,24 @@ class UserServiceTest {
 
 
     @Test
-    void checkUserExist() {
+    void checkUserExistWithCorrectUser() {
 
         User dima = new User("Dima", 31);
         String name = "Dima";
         when(userDaoMock.getUserByName(name)).thenReturn(dima);
 
-        userService.checkUserExist(new User("Dima", 31));
+        Assertions.assertTrue(userService.checkUserExist(dima));
+
+    }
+
+    @Test
+    void checkUserExistWithNullUser() {
+
+        User dima = new User("Dima", 31);
+        String name = "Dima";
+        when(userDaoMock.getUserByName(name)).thenReturn(null);
+
+        Assertions.assertFalse(userService.checkUserExist(dima));
 
     }
 }
